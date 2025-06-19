@@ -1,6 +1,7 @@
-import { Link } from "@/router";
-import type { Post } from "@my-fullstack-app/database";
 import { formatDistanceToNow } from "date-fns";
+
+import type { Post } from "@/lib/types";
+import { Link } from "@/router";
 
 export default function PostItem({ post }: { post: Post }) {
   return (
@@ -12,6 +13,7 @@ export default function PostItem({ post }: { post: Post }) {
         <small className="text-gray-500 dark:text-gray-400">
           {formatDistanceToNow(new Date(post.created), { addSuffix: true })}
         </small>
+        <p>{post.user?.username}</p>
       </div>
     </Link>
   );

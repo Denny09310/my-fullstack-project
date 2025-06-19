@@ -1,9 +1,9 @@
 import { Preferences } from "@capacitor/preferences";
-import type { User } from "@my-fullstack-app/database";
 import type { ActionFunctionArgs } from "react-router";
 import { Form, useActionData } from "react-router";
 
 import api from "@/lib/axios";
+import type { User } from "@/lib/types";
 import { redirect } from "@/router";
 
 export async function Action({ request }: ActionFunctionArgs) {

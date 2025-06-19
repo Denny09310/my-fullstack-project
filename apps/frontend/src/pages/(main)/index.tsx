@@ -1,7 +1,8 @@
-import type { Post } from "@my-fullstack-app/database";
 import { useLoaderData } from "react-router";
 
 import PostItem from "@/components/post-item";
+import RoundedAvatar from "@/components/user-avatar";
+import type { Post } from "@/lib/types";
 import { Link } from "@/router";
 
 export const Loader = async () => {
@@ -16,9 +17,12 @@ export default function PostsPage() {
 
   return (
     <div className="mx-auto max-w-xl p-4">
-      <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">
-        Posts Feed
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Posts Feed
+        </h1>
+        <RoundedAvatar />
+      </div>
 
       <Link
         to="/posts/create"
