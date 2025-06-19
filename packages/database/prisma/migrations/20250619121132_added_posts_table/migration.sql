@@ -1,9 +1,0 @@
--- CreateTable
-CREATE TABLE "posts" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "content" TEXT NOT NULL,
-    "created" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "userid" TEXT NOT NULL,
-    CONSTRAINT "posts_userid_fkey" FOREIGN KEY ("userid") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
-);
