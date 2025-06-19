@@ -1,7 +1,8 @@
-import api from "@/lib/axios";
-import type { Post } from "@my-fullstack-app/database";
 import { useLoaderData, type LoaderFunctionArgs } from "react-router";
 import { formatDistanceToNow } from "date-fns";
+
+import api from "@/lib/axios";
+import type { Post } from "@/lib/types";
 
 export const Loader = async ({ params }: LoaderFunctionArgs) => {
   const { id } = params as { id: string };
@@ -38,9 +39,10 @@ export default function Page() {
       <p className="mb-6 whitespace-pre-wrap text-gray-800 dark:text-gray-200">
         {post.content}
       </p>
-      <div className="text-sm text-gray-500 dark:text-gray-400">
+      <div className="mb-4 text-sm text-gray-500 dark:text-gray-400">
         {formatDistanceToNow(new Date(post.created), { addSuffix: true })}
       </div>
+      <strong>{post.user?.username}</strong>
     </div>
   );
 }
