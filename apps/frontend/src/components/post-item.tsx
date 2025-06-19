@@ -1,9 +1,15 @@
+import type { Prisma } from "@my-fullstack-app/database";
 import { formatDistanceToNow } from "date-fns";
 
-import type { Post } from "@/lib/types";
 import { Link } from "@/router";
 
-export default function PostItem({ post }: { post: Post }) {
+type Props = {
+  post: Prisma.PostGetPayload<{
+    include: { user: true };
+  }>;
+};
+
+export default function PostItem({ post }: Props) {
   return (
     <Link to="/posts/:id" params={{ id: post.id }}>
       <div className="mb-4 rounded border bg-white p-4 shadow-sm dark:bg-gray-800">
@@ -13,7 +19,7 @@ export default function PostItem({ post }: { post: Post }) {
         <small className="text-gray-500 dark:text-gray-400">
           {formatDistanceToNow(new Date(post.created), { addSuffix: true })}
         </small>
-        <p>{post.user?.username}</p>
+        <p>{post.user.username}</p>
       </div>
     </Link>
   );

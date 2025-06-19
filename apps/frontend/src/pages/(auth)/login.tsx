@@ -1,9 +1,9 @@
 import { Preferences } from "@capacitor/preferences";
+import type { User } from "@my-fullstack-app/database";
 import type { ActionFunctionArgs } from "react-router";
 import { Form, useActionData } from "react-router";
 
 import api from "@/lib/axios";
-import type { User } from "@/lib/types";
 import { redirect } from "@/router";
 
 export async function Action({ request }: ActionFunctionArgs) {
@@ -11,12 +11,12 @@ export async function Action({ request }: ActionFunctionArgs) {
   const credentials = Object.fromEntries(form.entries());
 
   try {
-    const res = await api.post<{ token: string; user: User }>(
-      "/auth/login",
-      credentials,
-    );
-    const { token } = res.data;
+    const res = await api.post<{
+      token: string;
+      user: Pick<User, "id" | "username" | "email">;
+    }>("/auth/login", credentials);
 
+    const { token } = res.data;
     await Preferences.set({ key: "auth_token", value: token });
 
     return redirect("/");

@@ -1,13 +1,16 @@
-import { useLoaderData, type LoaderFunctionArgs } from "react-router";
+import type { Prisma } from "@my-fullstack-app/database";
 import { formatDistanceToNow } from "date-fns";
+import { useLoaderData, type LoaderFunctionArgs } from "react-router";
 
 import api from "@/lib/axios";
-import type { Post } from "@/lib/types";
 
 export const Loader = async ({ params }: LoaderFunctionArgs) => {
   const { id } = params as { id: string };
   try {
-    const post = await api.get<Post>(`/posts/${id}`);
+    const post = await api.get<
+      Prisma.PostGetPayload<{ include: { user: true } }>
+    >(`/posts/${id}`);
+
     return { post: post.data };
   } catch {
     return { error: "Invalid post" };
@@ -42,7 +45,7 @@ export default function Page() {
       <div className="mb-4 text-sm text-gray-500 dark:text-gray-400">
         {formatDistanceToNow(new Date(post.created), { addSuffix: true })}
       </div>
-      <strong>{post.user?.username}</strong>
+      <strong>{post.user.username}</strong>
     </div>
   );
 }

@@ -2,13 +2,17 @@ import { useLoaderData } from "react-router";
 
 import PostItem from "@/components/post-item";
 import RoundedAvatar from "@/components/user-avatar";
-import type { Post } from "@/lib/types";
 import { Link } from "@/router";
+import type { Prisma } from "@my-fullstack-app/database";
 
 export const Loader = async () => {
   const res = await fetch("/api/posts");
   if (!res.ok) throw new Error("Failed to load posts");
-  const posts = (await res.json()) as Post[];
+
+  const posts = (await res.json()) as Prisma.PostGetPayload<{
+    include: { user: true };
+  }>[];
+
   return { posts };
 };
 
