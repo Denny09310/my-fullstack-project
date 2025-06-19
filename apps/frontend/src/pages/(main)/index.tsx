@@ -1,0 +1,39 @@
+import type { Post } from "@my-fullstack-app/database";
+import { useLoaderData } from "react-router";
+
+import PostItem from "@/components/post-item";
+import { Link } from "@/router";
+
+export const Loader = async () => {
+  const res = await fetch("/api/posts");
+  if (!res.ok) throw new Error("Failed to load posts");
+  const posts = (await res.json()) as Post[];
+  return { posts };
+};
+
+export default function PostsPage() {
+  const { posts } = useLoaderData<typeof Loader>();
+
+  return (
+    <div className="mx-auto max-w-xl p-4">
+      <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">
+        Posts Feed
+      </h1>
+
+      <Link
+        to="/posts/create"
+        className="mb-6 inline-block rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+      >
+        Create New Post
+      </Link>
+
+      {posts.length === 0 && (
+        <p className="text-gray-700 dark:text-gray-300">No posts yet.</p>
+      )}
+
+      {posts.map((post) => (
+        <PostItem key={post.id} post={post} />
+      ))}
+    </div>
+  );
+}
