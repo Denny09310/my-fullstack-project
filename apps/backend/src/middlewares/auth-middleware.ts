@@ -11,7 +11,7 @@ export type AuthorizedRequest = Request & {
 export async function authorized(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   const header = req.headers.authorization;
   if (!header?.startsWith("Bearer ")) {
