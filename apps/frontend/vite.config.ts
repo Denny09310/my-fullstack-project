@@ -8,14 +8,14 @@ import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default ({ mode }: { mode: string }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd(), "") };
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
   return defineConfig({
     plugins: [react(), generouted(), tailwindcss()],
     server: {
       proxy: {
         "^/api": {
-          target: process.env.API_TARGET,
+          target: process.env.VITE_API_TARGET,
           secure: mode === "development",
           rewrite: (path) => path.replace(/^\/api/, ""),
         },
