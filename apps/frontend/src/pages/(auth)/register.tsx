@@ -2,7 +2,7 @@ import type { ActionFunctionArgs } from "react-router";
 import { Form, useActionData } from "react-router";
 
 import api from "@/lib/axios";
-import { redirect } from "@/router";
+import { Link, redirect } from "@/router";
 
 export async function Action({ request }: ActionFunctionArgs) {
   const form = await request.formData();
@@ -58,12 +58,12 @@ export default function Page() {
         </Form>
         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
           Already have an account?{" "}
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="text-blue-600 hover:underline dark:text-blue-400"
           >
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>
