@@ -12,7 +12,7 @@ type Props = {
 export default function PostItem({ post }: Props) {
   return (
     <Link to="/posts/:id" params={{ id: post.id }}>
-      <div className="mb-4 rounded border bg-white p-4 shadow-sm dark:bg-gray-800">
+      <div className="mb-4 rounded border bg-white p-4 dark:bg-gray-800">
         <p className="whitespace-pre-wrap text-gray-900 dark:text-gray-100">
           {post.content}
         </p>

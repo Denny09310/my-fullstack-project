@@ -35,7 +35,7 @@ export default function Page() {
     );
 
   return (
-    <div className="mx-auto mt-8 max-w-2xl rounded-lg bg-white p-6 shadow-md dark:bg-gray-900">
+    <div className="mx-auto mt-8 max-w-2xl rounded-lg bg-white p-6 dark:bg-gray-900">
       <h1 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">
         Post Details
       </h1>
