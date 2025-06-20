@@ -4,13 +4,47 @@
   @apply bg-white leading-6 font-normal text-gray-800 antialiased scheme-light-dark dark:bg-gray-900 dark:text-gray-100;
 }
 
-@layer base {
-  html {
-    -webkit-tap-highlight-color: transparent;
-  }
+html {
+  -webkit-tap-highlight-color: transparent;
+}
 
-  body {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
   }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-from-right {
+  from {
+    transform: translateX(30px);
+  }
+}
+
+@keyframes slide-to-left {
+  to {
+    transform: translateX(-30px);
+  }
+}
+
+::view-transition-old(root) {
+  animation:
+    90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+    300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+
+::view-transition-new(root) {
+  animation:
+    210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+    300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
 }

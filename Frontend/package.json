@@ -15,6 +15,7 @@
     "@capacitor/core": "^7.4.0",
     "@capacitor/preferences": "^7.0.1",
     "@generouted/react-router": "^1.20.0",
+    "@my-fullstack-app/database": "workspace:*",
     "@tailwindcss/vite": "^4.1.10",
     "axios": "^1.10.0",
     "date-fns": "^4.1.0",

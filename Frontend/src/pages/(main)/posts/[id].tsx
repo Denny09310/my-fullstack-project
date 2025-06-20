@@ -1,13 +1,15 @@
+import type { Prisma } from "@my-fullstack-app/database";
 import { formatDistanceToNow } from "date-fns";
 import { useLoaderData, type LoaderFunctionArgs } from "react-router";
 
 import api from "@/lib/axios";
-import type { Post, User } from "@/lib/types";
 
 export const Loader = async ({ params }: LoaderFunctionArgs) => {
   const { id } = params as { id: string };
   try {
-    const post = await api.get<Post & { user: User }>(`/posts/${id}`);
+    const post = await api.get<
+      Prisma.PostGetPayload<{ include: { user: true } }>
+    >(`/posts/${id}`);
 
     return { post: post.data };
   } catch {
@@ -33,7 +35,7 @@ export default function Page() {
     );
 
   return (
-    <div className="mx-auto mt-8 max-w-2xl rounded-lg bg-white p-6 shadow-md dark:bg-gray-900">
+    <div className="mx-auto mt-8 max-w-2xl rounded-lg bg-white p-6 dark:bg-gray-900">
       <h1 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">
         Post Details
       </h1>

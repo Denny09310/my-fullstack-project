@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider } from "@/lib/auth-context";
 
 export default function App() {
   return (
