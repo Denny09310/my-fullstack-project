@@ -1,7 +1,7 @@
-import { useAuth } from "@/lib/auth-context";
+import { useAuthentication } from "@/lib/authentication";
 
 export default function RoundedAvatar() {
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuthentication();
 
   const initials = user?.username
     .split(" ")

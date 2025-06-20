@@ -1,10 +1,10 @@
 import { Outlet } from "react-router";
 
-import { useAuth } from "@/lib/auth-context";
+import { useAuthentication } from "@/lib/authentication";
 import { Navigate } from "@/router";
 
 export default function Layout() {
-  const { user } = useAuth();
+  const { user } = useAuthentication();
   if (!user) return <Navigate to="/login" />;
   return <Outlet />;
 }

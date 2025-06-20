@@ -1,31 +1,31 @@
 import type { User } from "@my-fullstack-app/database";
-import type { ActionFunctionArgs } from "react-router";
-import { Form, useActionData } from "react-router";
+import { useState } from "react";
+import { Form } from "react-router";
 
-import { login } from "@/lib/auth-context";
-import api from "@/lib/axios";
-import { Link, redirect } from "@/router";
+import { useAuthentication } from "@/lib/authentication";
+import { Link, useNavigate } from "@/router";
 
-export async function Action({ request }: ActionFunctionArgs) {
-  const form = await request.formData();
-  const credentials = Object.fromEntries(form.entries());
-
-  try {
-    const res = await api.post<{
-      token: string;
-      user: Pick<User, "id" | "username" | "email">;
-    }>("/auth/login", credentials);
-
-    const { token } = res.data;
-    await login(token);
-
-    return redirect("/");
-  } catch {
-    return { error: "Invalid credentials" };
-  }
-}
 export default function Page() {
-  const data = useActionData<typeof Action>();
+  const [error, setError] = useState<string | null>(null);
+
+  const { login } = useAuthentication();
+  const navigate = useNavigate();
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setError(null);
+
+    const form = new FormData(event.currentTarget);
+    const credentials = Object.fromEntries(form.entries()) as Pick<
+      User,
+      "email" | "password"
+    >;
+
+    await login(credentials)
+      .then(() => navigate("/", { replace: true }))
+      .catch(() => setError("Invalid email or password. Please try again."));
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-gray-900">
@@ -33,10 +33,8 @@ export default function Page() {
         <h1 className="text-center text-2xl font-bold text-gray-800 dark:text-white">
           Login
         </h1>
-        {data?.error && (
-          <p className="text-center text-sm text-red-500">{data.error}</p>
-        )}
-        <Form method="post" className="space-y-4">
+        {error && <p className="text-center text-sm text-red-500">{error}</p>}
+        <Form className="space-y-4" onSubmit={handleSubmit}>
           <input
             name="email"
             type="email"

@@ -1,11 +1,11 @@
 import { Outlet } from "react-router";
 
-import { AuthProvider } from "@/lib/auth-context";
+import { AuthenticationProvider } from "@/lib/authentication";
 
 export default function App() {
   return (
-    <AuthProvider>
+    <AuthenticationProvider>
       <Outlet />
-    </AuthProvider>
+    </AuthenticationProvider>
   );
 }
