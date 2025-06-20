@@ -1,10 +1,10 @@
-import { Preferences } from "@capacitor/preferences";
 import type { User } from "@my-fullstack-app/database";
 import type { ActionFunctionArgs } from "react-router";
 import { Form, useActionData } from "react-router";
 
+import { login } from "@/lib/auth-context";
 import api from "@/lib/axios";
-import { redirect } from "@/router";
+import { Link, redirect } from "@/router";
 
 export async function Action({ request }: ActionFunctionArgs) {
   const form = await request.formData();
@@ -17,7 +17,7 @@ export async function Action({ request }: ActionFunctionArgs) {
     }>("/auth/login", credentials);
 
     const { token } = res.data;
-    await Preferences.set({ key: "auth_token", value: token });
+    await login(token);
 
     return redirect("/");
   } catch {
@@ -60,12 +60,12 @@ export default function Page() {
         </Form>
         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
           Don't have an account?{" "}
-          <a
-            href="/register"
+          <Link
+            to="/register"
             className="text-blue-600 hover:underline dark:text-blue-400"
           >
             Register
-          </a>
+          </Link>
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/lib/auth-context";
 import { Navigate } from "@/router";
 
 export default function Layout() {
